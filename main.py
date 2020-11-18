@@ -1,9 +1,10 @@
 from tkinter import *
 # from tkinter.ttk import Scale
 import random
+import time
 from Sorting.bubblesort import BubbleSort
 from Sorting.selectionsort import SelectionSort
-import time
+from Sorting.insertionsort import InsertionSort
 
 algoList, data, bars = ['Bubble Sort', 'Selection Sort', 'Insertion Sort', 'Quick Sort', 'Merge Sort'], [], []
 
@@ -60,7 +61,7 @@ def Sorted():
     i = 0
     while i < len(data):
         colors[i] = green
-        drawData(data, colors, 0.0001)
+        drawData(data, colors, 0.00001)
         i += 1
 
 
@@ -73,6 +74,12 @@ def startBubble():
 def startSelection():
     global data
     SelectionSort(data, drawData, sleepTimer.get())
+    Sorted()
+
+
+def startInsertion():
+    global data
+    InsertionSort(data, drawData, sleepTimer.get())
     Sorted()
 
 
@@ -97,9 +104,8 @@ lower.grid_propagate(False)
 # adding buttons on lower frame
 Button(lower, text='Shuffle Array', height=4, width=25, command=shuffle).grid(row=0, column=2, padx=9, pady=20)
 Button(lower, text='Bubble Sort', height=4, width=25, command=startBubble).grid(row=0, column=3, padx=9, pady=20)
-Button(lower, text='Selection Sort', height=4, width=25, command=startSelection).grid(row=0, column=4, padx=9,
-                                                                                      pady=20)
-Button(lower, text='Insertion Sort', height=4, width=25).grid(row=0, column=5, padx=9, pady=20)
+Button(lower, text='Selection Sort', height=4, width=25, command=startSelection).grid(row=0, column=4, padx=9, pady=20)
+Button(lower, text='Insertion Sort', height=4, width=25, command=startInsertion).grid(row=0, column=5, padx=9, pady=20)
 Button(lower, text='algo', height=4, width=25).grid(row=0, column=6, padx=9, pady=20)
 Button(lower, text='lgo', height=4, width=25).grid(row=0, column=7, padx=9, pady=20)
 Button(lower, text='algo', height=4, width=25).grid(row=0, column=8, padx=9, pady=20)
