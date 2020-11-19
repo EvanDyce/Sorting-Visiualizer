@@ -1,10 +1,11 @@
 from tkinter import *
 # from tkinter.ttk import Scale
 import random
-import time
 from Sorting.bubblesort import BubbleSort
 from Sorting.selectionsort import SelectionSort
 from Sorting.insertionsort import InsertionSort
+from Sorting.combsort import CombSort
+from Sorting.monkeysort import MonkeySort
 
 algoList, data, bars = ['Bubble Sort', 'Selection Sort', 'Insertion Sort', 'Quick Sort', 'Merge Sort'], [], []
 
@@ -15,7 +16,7 @@ white = '#ffffff'
 grey = '#a6a2a2'
 
 
-def drawData(array, colors, sleep):
+def drawData(array, colors):
     global bars
 
     graph.delete('all')
@@ -33,7 +34,6 @@ def drawData(array, colors, sleep):
         bar = graph.create_rectangle(x1, y1, x2, y2, fill=colors[counter])
         bars.append(bar)
         counter += 1
-    time.sleep(sleep)
 
     root.update_idletasks()
 
@@ -46,13 +46,13 @@ def Generate(max_value):
     for i in range(1, int(max_value) + 1):
         data.append(i)
 
-    drawData(data, ['white' for x in range(len(data))], 0)
+    drawData(data, ['white' for x in range(len(data))])
 
 
 def shuffle():
     global data
     random.shuffle(data)
-    drawData(data, ['white' for x in range(len(data))], 0)
+    drawData(data, ['white' for x in range(len(data))])
 
 
 def Sorted():
@@ -61,7 +61,7 @@ def Sorted():
     i = 0
     while i < len(data):
         colors[i] = green
-        drawData(data, colors, 0.00001)
+        drawData(data, colors)
         i += 1
 
 
@@ -82,6 +82,28 @@ def startInsertion():
     InsertionSort(data, drawData, sleepTimer.get())
     Sorted()
 
+
+def startComb():
+    global data
+    CombSort(data, drawData, sleepTimer.get())
+    Sorted()
+
+
+def startMonkey():
+    global data
+    count = 0
+    monk = MonkeySort(data, drawData)
+    while monk != sorted(data):
+        monk = MonkeySort(data, drawData)
+        count += 1
+    Sorted()
+    #
+    #
+    # 5 369
+    # 6 830
+    #
+    # 8 takes 82000
+    # 9 takes 469801
 
 # Creating the main window
 root = Tk()
@@ -106,15 +128,14 @@ Button(lower, text='Shuffle Array', height=4, width=25, command=shuffle).grid(ro
 Button(lower, text='Bubble Sort', height=4, width=25, command=startBubble).grid(row=0, column=3, padx=9, pady=20)
 Button(lower, text='Selection Sort', height=4, width=25, command=startSelection).grid(row=0, column=4, padx=9, pady=20)
 Button(lower, text='Insertion Sort', height=4, width=25, command=startInsertion).grid(row=0, column=5, padx=9, pady=20)
-Button(lower, text='algo', height=4, width=25).grid(row=0, column=6, padx=9, pady=20)
-Button(lower, text='lgo', height=4, width=25).grid(row=0, column=7, padx=9, pady=20)
+Button(lower, text='Comb Sort', height=4, width=25, command=startComb).grid(row=0, column=6, padx=9, pady=20)
+Button(lower, text='Monkey Sort', height=4, width=25, command=startMonkey).grid(row=0, column=7, padx=9, pady=20)
 Button(lower, text='algo', height=4, width=25).grid(row=0, column=8, padx=9, pady=20)
 
 # adding slider for array size and for sleepTime
-slider = Scale(lower, from_=10, to=200, orient=HORIZONTAL, label='Size of Array', length=250, command=Generate)
+slider = Scale(lower, from_=1, to=200, orient=HORIZONTAL, label='Size of Array', length=250, command=Generate)
 slider.grid(row=0, column=0, padx=9, pady=40)
-sleepTimer = Scale(lower, from_=0.00, to=0.10, orient=HORIZONTAL, label='Choose Speed of Sort', length=250,
-                   resolution=0.01, tickinterval=0.01, showvalue=0)
+sleepTimer = Scale(lower, from_=0.00, to=0.10, orient=HORIZONTAL, label='Choose Speed of Sort', length=250, resolution=0.01, tickinterval=0.01, showvalue=0)
 sleepTimer.grid(row=0, column=1, padx=9, pady=9)
 
 Generate(10)
