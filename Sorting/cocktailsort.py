@@ -1,8 +1,10 @@
+import time
+
 white = '#ffffff'
 red = '#ff0000'
 
 
-def CocktailSort(arr, func):
+def CocktailSort(arr, func, sleeptime):
 
     def Forward(low, high, arr):
         i = low
@@ -35,7 +37,9 @@ def CocktailSort(arr, func):
 
     while not Sorted(arr):
         Forward(low, high, arr)
+        time.sleep(sleeptime)
         Backward(low, high, arr)
+        time.sleep(sleeptime)
         low += 1
         high -= 1
     return arr

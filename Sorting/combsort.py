@@ -1,8 +1,15 @@
 import time
 import math
 
-white = '#ffffff'
 red = '#ff0000'
+green = '#00b32d'
+black = '#000000'
+white = '#ffffff'
+grey = '#a6a2a2'
+purple = '#ce9eff'
+light_blue = '#94afff'
+light_pink = '#ffbffc'
+light_yellow = '#fffebf'
 
 
 def CombSort(array, func, timeSleep):
@@ -26,4 +33,3 @@ def CombSort(array, func, timeSleep):
             start += 1
         time.sleep(timeSleep)
     return array
-
