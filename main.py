@@ -50,13 +50,13 @@ class Lower(Frame):
         self.size_slider = Scale(self, from_=10, to=250, orient='horizontal', label='Size of Array', length=250, command=self.parent.upper.graph.generate_data)
         self.size_slider.grid(row=0, column=0, padx=70, pady=40)
         self.time_slider = Scale(self, from_=1, to=10, orient=HORIZONTAL, label='Sorting Speed', length=250, resolution=1, tickinterval=1, showvalue=0)
-        self.time_slider.grid(row=0, column=5, padx=70)
+        self.time_slider.grid(row=0, column=1, padx=70)
 
         # buttons
         self.shuffle_button = Button(self, text='Shuffle Array', height=5, width=30, command=self.parent.upper.graph.shuffle)
         self.shuffle_button.grid(row=0, column=3, padx=70)
         self.sort_button = Button(self, text='Sort', height=5, width=30, command=self.parent.upper.graph.begin_sort)
-        self.sort_button.grid(row=0, column=4, padx=70)
+        self.sort_button.grid(row=0, column=5, padx=70)
 
         # dropdown
         font.Font(family='Helvetica', name='hel')
@@ -65,7 +65,7 @@ class Lower(Frame):
         self.dropdown = OptionMenu(self, self.variable, *algoList)
         self.dropdown.configure(height=1, width=20, font='hel')
         self.dropdown['menu'].config(font='hel')
-        self.dropdown.grid(row=0, column=6, padx=70)
+        self.dropdown.grid(row=0, column=4, padx=70)
 
 
     def get_variable(self):
