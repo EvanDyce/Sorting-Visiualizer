@@ -1,9 +1,8 @@
 from tkinter import *
 from tkinter import font
-import time
 import datetime
 import random
-from Sorting.bubblesort import BubbleSort, defocus
+from Sorting.bubblesort import BubbleSort
 from Sorting.selectionsort import SelectionSort
 from Sorting.insertionsort import InsertionSort
 from Sorting.combsort import CombSort
@@ -16,10 +15,9 @@ from Sorting.quicksort import QuickSort
 
 
 algoList = ['Monkey Sort', 'Bubble Sort', 'Selection Sort', 'Insertion Sort', 'Cocktail Sort', 'Comb Sort', 'Shell Sort', 'Heap Sort', 'Quick Sort', 'Merge Sort']
+speedList = ['Noma']
 bars, data = [], []
 selected_alg = ''
-date = datetime.datetime.now()
-print(date.minute, date.second, date.microsecond)
 
 
 
@@ -71,6 +69,9 @@ def shuffle():
 
 def Sorted():
     global data
+
+    is_sorted = True
+
     colors = [white for x in range(len(data))]
     i = 0
 
@@ -107,7 +108,12 @@ def Sorted():
 
 def begin_sort():
     global data
-    global start_time
+    global first_sum
+
+    full = datetime.datetime.now()
+    date_minute = full.minute
+    date_second = full.second
+    first_sum = date_minute*60 + date_second
 
 
     function_dict = {
@@ -130,7 +136,6 @@ def begin_sort():
             monke = function_dict[variable.get()](data, drawData, sleepTimer.get())
             drawData(monke, [white for x in range(len(monke))])
 
-
     elif variable.get() == 'Quick Sort':
         QuickSort(data, 0, len(data)-1, drawData)
 
@@ -138,14 +143,6 @@ def begin_sort():
         function_dict[variable.get()](data, drawData, sleepTimer.get())
 
     Sorted()
-
-
-def UpdateTimer():
-    pass
-
-
-def end():
-    sys.exit(0)
 
 
 # Creating the main window
@@ -174,26 +171,20 @@ variable.set("Select an Algorithm")
 dropdown = OptionMenu(lower, variable, *algoList)
 dropdown.configure(height=1, width=20, font='hel15')
 dropdown['menu'].config(font='hel15')
-dropdown.grid(row=0, column=3, padx=9)
+dropdown.grid(row=0, column=4, padx=30)
 
 # adding sort button
-Button(lower, text='Shuffle Array', height=4, width=25, command=shuffle).grid(row=0, column=4, padx=20, pady=20)
-Button(lower, text='Sort', height=4, width=25, command=begin_sort).grid(row=0, column=5, padx=20)
-Button(lower, text='Stop', height=4, width=25, command=end).grid(row=0, column=6, padx=20)
+Button(lower, text='Shuffle Array', height=4, width=25, command=shuffle).grid(row=0, column=3, padx=30)
+Button(lower, text='Sort', height=4, width=25, command=begin_sort).grid(row=0, column=5, padx=30)
 
 
 # adding slider for array size and for sleepTime
 slider = Scale(lower, from_=10, to=250, orient=HORIZONTAL, label='Size of Array', length=250, command=Generate)
-slider.grid(row=0, column=0, padx=20, pady=40)
+slider.grid(row=0, column=0, padx=30, pady=40)
 sleepTimer = Scale(lower, from_=0.00, to=0.10, orient=HORIZONTAL, label='Choose Speed of Sort', length=250, resolution=0.01, tickinterval=0.01, showvalue=0)
-sleepTimer.grid(row=0, column=1, padx=20, pady=9)
+sleepTimer.grid(row=0, column=1, padx=30, pady=9)
 
-
-# adding timer label to the lower frame
-timer = Label(lower, text='0.00', height=4, width=25)
-timer.grid(row=0, column=7, padx=20)
 
 Generate(10)
 
 root.mainloop()
-root.after(10, UpdateTimer())
