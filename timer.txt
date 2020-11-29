@@ -1,0 +1,7 @@
+On click of sort button begin timer
+Update the label constantly or with root.after
+When Sorted is called then end the timer and leave the label as is for 5 seconds
+
+steps 
+on begin sort call get current time store in global variable
+use root.after to do time subtracting the og time from teh current time

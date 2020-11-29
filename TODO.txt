@@ -1,0 +1,4 @@
+- Add counter for comparisons
+- allow resizing of the screen
+- add sounds
+- multiprocessing for exit funciton

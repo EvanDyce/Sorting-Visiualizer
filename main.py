@@ -133,14 +133,14 @@ def begin_sort():
     if variable.get() == 'Monkey Sort':
         monke = []
         while monke != sorted(data):
-            monke = function_dict[variable.get()](data, drawData, sleepTimer.get())
+            monke = function_dict[variable.get()](data, drawData, (sleepTimer.get()/10-0.1))
             drawData(monke, [white for x in range(len(monke))])
 
     elif variable.get() == 'Quick Sort':
         QuickSort(data, 0, len(data)-1, drawData)
 
     else:
-        function_dict[variable.get()](data, drawData, sleepTimer.get())
+        function_dict[variable.get()](data, drawData, (sleepTimer.get()/10-0.1))
 
     Sorted()
 
@@ -171,18 +171,18 @@ variable.set("Select an Algorithm")
 dropdown = OptionMenu(lower, variable, *algoList)
 dropdown.configure(height=1, width=20, font='hel15')
 dropdown['menu'].config(font='hel15')
-dropdown.grid(row=0, column=4, padx=30)
+dropdown.grid(row=0, column=4, padx=45)
 
 # adding sort button
-Button(lower, text='Shuffle Array', height=4, width=25, command=shuffle).grid(row=0, column=3, padx=30)
-Button(lower, text='Sort', height=4, width=25, command=begin_sort).grid(row=0, column=5, padx=30)
+Button(lower, text='Shuffle Array', height=5, width=30, command=shuffle).grid(row=0, column=3, padx=70)
+Button(lower, text='Sort', height=5, width=30, command=begin_sort).grid(row=0, column=5, padx=70)
 
 
 # adding slider for array size and for sleepTime
 slider = Scale(lower, from_=10, to=250, orient=HORIZONTAL, label='Size of Array', length=250, command=Generate)
-slider.grid(row=0, column=0, padx=30, pady=40)
-sleepTimer = Scale(lower, from_=0.00, to=0.10, orient=HORIZONTAL, label='Choose Speed of Sort', length=250, resolution=0.01, tickinterval=0.01, showvalue=0)
-sleepTimer.grid(row=0, column=1, padx=30, pady=9)
+slider.grid(row=0, column=0, padx=80)
+sleepTimer = Scale(lower, from_=1, to=10, orient=HORIZONTAL, label='Sorting Speed', length=250, resolution=1, tickinterval=1, showvalue=0)
+sleepTimer.grid(row=0, column=1, padx=70, pady=40)
 
 
 Generate(10)
